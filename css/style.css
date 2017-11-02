@@ -1,0 +1,7 @@
+
+
+.navbar .navbar-nav > .active > a:hover,
+.navbar-brand:hover{
+     opacity: 0.2;
+ }
+
