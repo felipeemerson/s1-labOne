@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="Artistas">
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -61,30 +61,34 @@
     </nav>
 
     <!-- Conteudo da pagina -->
-    <div class="container my-4">
+    <div class="container my-4" ng-controller="ArtistasController">
 
     	<!--Linha com os dois formularios-->
     	<div class="row" style="margin-top: 150px">
 	    	<!-- Adicionar artista -->
 	    	<div class="col" id="right">
-		    	<h3><b>Adicionar artista</b></h3>
-		    	<form autocomplete="off" method="get">
+		    	
+		    	<form autocomplete="off" method="get" ng-submit="adicionaArtista()">
+		    		<legend><b>Adicionar artista</b></legend>
 					<div class="form-group">
-		    			<label for="name-artist">Nome do artista:</label>
-		    			<input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="name" required>
+		    			<label for="nome-artista">Nome do artista:</label>
+		    			<input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="name" ng-model="novoArtista.nome" required>
 		  			</div>
 		  			<div class="form-group">
 		    			<label for="url">Link da imagem:</label>
-		   				<input type="text" class="form-control" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$" placeholder="Link da imagem" id="url">
+		   				<input type="url" class="form-control"  placeholder="Link da imagem" id="url" ng-model="novoArtista.imagemUrl">
 		  			</div>
-		  			<button type="submit" class="btn btn-secondary">Adicionar artista</button>
+		  			<footer>
+		  				<button type="submit" class="btn btn-secondary">Adicionar artista</button>
+		  			</footer>
 				</form> 
 			</div>
+
 			<!-- Adicionar musica -->
 			
 			<div class="col" id="left">
-				<h3><b>Adicionar música</b></h3>
 		    	<form autocomplete="off" method="get">
+		    		<legend><b>Adicionar música</b></legend>
 					<div class="form-group">
 		    			<label for="name-music">Nome da música:</label>
 		    			<input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="name" required>
@@ -120,13 +124,17 @@
 
 
 		<!--Lista de artistas-->
-		<div class="lista-artistas" ng-controller="ArtistasController">
-			<div class="artista"></div> 
+		<div class="row lista-artistas">
+			<div class="card artista" style="width: 150px; margin-right: 5px" ng-repeat="artista in artistas">
+				<h6 class="card-text" style="text-align: center">{{ artista.nome }}</h6>
+				<img class="card-img-top" ng-src="{{ artista.imagemUrl }}" alt="Imagem de {{ artista.nome }}">
+			</div> 
 		</div>
 
 
 
    	</div>
+
 
 </body>
 </html>
