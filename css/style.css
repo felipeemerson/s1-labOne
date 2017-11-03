@@ -8,3 +8,13 @@
 .col {
 	 width: 40%;
 }
+
+.col {
+	background-color: #eeeeee;
+	border-radius: 10px;
+}
+
+#left {
+	margin-left: 10%;
+
+}
