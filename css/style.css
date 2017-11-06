@@ -34,3 +34,6 @@ hr {
 	margin-top: 20px;
 	margin-bottom: 15%;
 }
+div .card .artista:hover{
+	border: 5px solid #777;
+}

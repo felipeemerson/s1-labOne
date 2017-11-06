@@ -1,8 +1,9 @@
-angular.module("Artistas").controller("ArtistasController", function($scope){
+angular.module("meuApp").controller("meuAppController", function($scope){
 	$scope.artistas = [
 		{
 			nome: 'nothing',
-			imagemUrl: '../img/no-image.png'
+			imagemUrl: '../img/no-image.png',
+			albuns: []
 
 		}
 	];
@@ -15,25 +16,21 @@ angular.module("Artistas").controller("ArtistasController", function($scope){
 
 			var artista = angular.copy($scope.novoArtista);
 			artista.id = Date.now();
+			artista.albuns = [];
 			$scope.artistas.push(artista);
 			$scope.novoArtista = {};
+			alert('Artista adicionado');
 
 		}else {
 			alert('Nome do artista já existe!');
 		}
-		/*
-		var artista = angular.copy($scope.novoArtista);
-			artista.id = Date.now();
-			$scope.artistas.push(artista);
-
-			$scope.novoArtista = {};*/
 	}
 
 
 	$scope.validaNome = function(){ 
 		
-		for(var i = 0; i < $scope.artistas.length; i++){
-			if($scope.novoArtista.nome == $scope.artistas[i].nome){
+		for(var indiceArtista = 0; indiceArtista < $scope.artistas.length; indiceArtista++){
+			if($scope.novoArtista.nome == $scope.artistas[indiceArtista].nome){
 				return false;
 			}
 		}
@@ -53,5 +50,65 @@ angular.module("Artistas").controller("ArtistasController", function($scope){
 			$scope.novoArtista.imagemUrl = '../img/no-image.png';
 		}
 	}
+
+	/*
+	$scope.novaMusica = {};
+	$scope.albumExiste = false;
+	$scope.albumExistente = {};
+	$scope.musicaExiste = false;
+
+	
+	$scope.adicionaMusica = function() {
+		var musica = {};
+		musica.nome = $scope.novaMusica.nome;
+		musica.ano = $scope.novaMusica.ano;
+		musica.duracao = $scope.novaMusica.duracao;
+
+		$scope.validaMusica();
+		if($scope.musicaExiste) {
+			alert('Música já existe!');
+		} else if($scope.albumExiste){
+			$scope.albumExistente.musicas.push(musica);
+		} else {
+			var novoAlbum = {};
+			novoAlbum.nome = $scope.novaMusica.album;
+			novoAlbum.musicas = [musica];
+			for(var indiceArtista = 0; indiceArtista < $scope.artistas.length; indiceArtista++){
+				if($scope.novaMusica.artista == $scope.artistas[indiceArtista].nome){
+					$scope.artistas[indiceArtista].albuns.push(novoAlbum);
+				}
+			}
+		}
+
+		$scope.novaMusica = {};
+		$scope.albumExiste = false;
+		$scope.albumExistente = {};
+		$scope.musicaExiste = false;
+
+	}
+
+	$scope.validaMusica = function() {
+		for(var indiceArtista = 0; indiceArtista < $scope.artistas.length; indiceArtista++){
+			for(var indiceAlbum = 0; indiceAlbum < $scope.artistas[indiceArtista].albuns.length; indiceAlbum++){
+
+				if($scope.novaMusica.album == $scope.artistas[indiceArtista].albuns[indiceAlbum].nome){
+					$scope.albumExiste = true;
+					$scope.albumExistente = $scope.artistas[indiceArtista].albuns[indiceAlbum];
+
+					for(var indiceMusica = 0; indiceMusica < $scope.artistas[indiceArtista].albuns.musicas.length; indiceMusica++){
+						if($scope.novaMusica.nome == $scope.artistas[indiceArtista].albuns.musicas[indiceMusica].nome){
+							$scope.musicaExiste = true;
+							return;
+						}
+					}	
+				}
+				
+			}
+			
+		}
+	}
+	*/
+	
+	
 });
 
