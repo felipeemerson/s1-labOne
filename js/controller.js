@@ -1,11 +1,6 @@
-angular.module("meuApp").controller("meuAppController", function($scope){
+app.controller("meuAppController", function($scope){
 	$scope.artistas = [
-		{
-			nome: 'nothing',
-			imagemUrl: '../img/no-image.png',
-			albuns: []
-
-		}
+		
 	];
 
 	$scope.novoArtista = {};
@@ -95,7 +90,7 @@ angular.module("meuApp").controller("meuAppController", function($scope){
 		for(var indiceArtista = 0; indiceArtista < $scope.artistas.length; indiceArtista++){
 			for(var indiceAlbum = 0; indiceAlbum < $scope.artistas[indiceArtista].albuns.length; indiceAlbum++){
 
-				if($scope.novaMusica.album == $scope.artistas[indiceArtista].albuns[indiceAlbum].nome){
+				if($scope.novaMusica.artista == $scope.artistas[indiceArtista].nome && $scope.novaMusica.album == $scope.artistas[indiceArtista].albuns[indiceAlbum].nome){
 					$scope.albumExiste = true;
 					$scope.albumExistente = $scope.artistas[indiceArtista].albuns[indiceAlbum];
 
@@ -115,4 +110,5 @@ angular.module("meuApp").controller("meuAppController", function($scope){
 	
 	
 });
+
 
