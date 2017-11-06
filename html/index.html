@@ -128,7 +128,7 @@
       <div class="card artista" style="width: 150px; margin-right: 5px" ng-repeat="artista in artistas">
 
         <!--Modal de artista-->
-        <div id="myModal" class="modal fade" role="dialog">
+        <div id="myModal{{artista.id}}" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
               <!-- Conteudo da modal-->
@@ -139,7 +139,7 @@
                     </div>
                     <div class="modal-body row">
                       <div class="col-md-6">
-                        <img class="card-img-left" ng-src="{{ artista.imagemUrl }}" alt="Imagem de {{ artista.nome }}">
+                        <img class="card-img-left" ng-src="{{ artista.imagemUrl }}" alt="Imagem de {{ artista.nome }}" style="max-width: 225px; max-heigth: 225px">
                       </div>
                       <div class="col-md-6">
                         <ul class="card-text-right" style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
@@ -154,7 +154,7 @@
         </div>
 
         <!--Lista de artistas-->
-        <a data-toggle="modal" data-target="#myModal">
+        <a data-toggle="modal" data-target="#myModal{{artista.id}}">
           <h6 class="card-text" style="text-align: center">{{ artista.nome }}</h6>
           <img class="card-img-top" ng-src="{{ artista.imagemUrl }}" alt="Imagem de {{ artista.nome }}">
               
