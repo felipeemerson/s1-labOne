@@ -125,11 +125,11 @@
 
 		<!--Artistas-->
     <div class="row lista-artistas">
-      <div class="card artista" style="width: 150px; margin-right: 5px" ng-repeat="artista in artistas">
+      <div class="card artista" style="width: 250px; margin-right: 5px" ng-repeat="artista in artistas">
 
         <!--Modal de artista-->
         <div id="myModal{{artista.id}}" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
 
               <!-- Conteudo da modal-->
                 <div class="modal-content">
@@ -142,9 +142,18 @@
                         <img class="card-img-left" ng-src="{{ artista.imagemUrl }}" alt="Imagem de {{ artista.nome }}" style="max-width: 225px; max-heigth: 225px">
                       </div>
                       <div class="col-md-6">
+                        <p>Albuns:</p>
                         <ul class="card-text-right" style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-6" style="margin-left: 10px">
+                        <p>Nota: </p>
+                        <p>Ultima musica: </p>
+                        <p>Adicionar ao favoritos</p>
+                      </div>
+                    </div>
+                    
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                     </div>
