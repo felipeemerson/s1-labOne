@@ -51,7 +51,7 @@ angular.module("meuApp").controller("meuAppController", function($scope){
 		}
 	}
 
-	/*
+	
 	$scope.novaMusica = {};
 	$scope.albumExiste = false;
 	$scope.albumExistente = {};
@@ -59,6 +59,7 @@ angular.module("meuApp").controller("meuAppController", function($scope){
 
 	
 	$scope.adicionaMusica = function() {
+
 		var musica = {};
 		musica.nome = $scope.novaMusica.nome;
 		musica.ano = $scope.novaMusica.ano;
@@ -69,6 +70,7 @@ angular.module("meuApp").controller("meuAppController", function($scope){
 			alert('Música já existe!');
 		} else if($scope.albumExiste){
 			$scope.albumExistente.musicas.push(musica);
+			alert('Música adicionada no álbum: ' + $scope.albumExistente.nome);
 		} else {
 			var novoAlbum = {};
 			novoAlbum.nome = $scope.novaMusica.album;
@@ -76,6 +78,7 @@ angular.module("meuApp").controller("meuAppController", function($scope){
 			for(var indiceArtista = 0; indiceArtista < $scope.artistas.length; indiceArtista++){
 				if($scope.novaMusica.artista == $scope.artistas[indiceArtista].nome){
 					$scope.artistas[indiceArtista].albuns.push(novoAlbum);
+					alert('Música adicionada no álbum: ' + novoAlbum.nome);
 				}
 			}
 		}
@@ -84,6 +87,7 @@ angular.module("meuApp").controller("meuAppController", function($scope){
 		$scope.albumExiste = false;
 		$scope.albumExistente = {};
 		$scope.musicaExiste = false;
+		
 
 	}
 
@@ -95,8 +99,8 @@ angular.module("meuApp").controller("meuAppController", function($scope){
 					$scope.albumExiste = true;
 					$scope.albumExistente = $scope.artistas[indiceArtista].albuns[indiceAlbum];
 
-					for(var indiceMusica = 0; indiceMusica < $scope.artistas[indiceArtista].albuns.musicas.length; indiceMusica++){
-						if($scope.novaMusica.nome == $scope.artistas[indiceArtista].albuns.musicas[indiceMusica].nome){
+					for(var indiceMusica = 0; indiceMusica < $scope.artistas[indiceArtista].albuns[indiceAlbum].musicas.length; indiceMusica++){
+						if($scope.novaMusica.nome == $scope.artistas[indiceArtista].albuns[indiceAlbum].musicas[indiceMusica].nome){
 							$scope.musicaExiste = true;
 							return;
 						}
@@ -107,7 +111,7 @@ angular.module("meuApp").controller("meuAppController", function($scope){
 			
 		}
 	}
-	*/
+	
 	
 	
 });
