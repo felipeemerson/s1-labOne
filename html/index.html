@@ -179,11 +179,24 @@
 
 
 
-
+            <!-- Fim da div #pesquisa -->
             </div>
 
             <!-- Inicio div #playlists-->
             <div id="playlists" class="tab-pane fade in active">
+              <form autocomplete="on" ng-submit="adicionaPlaylist()">
+                     <legend><b>Adicionar playlist</b></legend>
+                     <div class="form-group">
+                        <label for="nome-artista">Nome da playlist:</label>
+                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="name" ng-model="novaPlaylist.nome" required>
+                     </div>
+                     <footer>
+                        <button type="submit" class="btn btn-secondary">Adicionar playlist</button>
+                     </footer>
+                </form>
+
+                
+
                <!-- Fim div #playlists -->
             </div>
 

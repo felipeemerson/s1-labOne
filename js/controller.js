@@ -1,6 +1,7 @@
 app.controller("meuAppController", function($scope){
 	$scope.artistas = [];
 	$scope.artistasFavoritos = [];
+	$scope.playlists = [];
 
 	$scope.novoArtista = {};
 
@@ -149,7 +150,28 @@ app.controller("meuAppController", function($scope){
 	}
 
 
+	$scope.novaPlaylist = {};
 
+	$scope.adicionaPlaylist = function() {
+		var playlist = {};
+		if(!$scope.verificaNomePlaylist()){
+			alert("A playlist já existe!");
+		} else {
+			playlist.nome = $scope.novaPlaylist.nome;
+			$scope.playlists.push(playlist);
+		}
+		
+		$scope.novaPlaylist = {};
+	}
+
+	$scope.verificaNomePlaylist = function() {
+		for(indicePlaylist = 0; indicePlaylist < $scope.playlists.length; indicePlaylist++){
+			if($scope.playlists[indicePlaylist].nome == $scope.novaPlaylist.nome){
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	
 	
