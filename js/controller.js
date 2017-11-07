@@ -159,6 +159,7 @@ app.controller("meuAppController", function($scope){
 		} else {
 			playlist.nome = $scope.novaPlaylist.nome;
 			playlist.id = Date.now();
+			playlist.musicas = [];
 			$scope.playlists.push(playlist);
 		}
 		
@@ -187,6 +188,7 @@ app.controller("meuAppController", function($scope){
 		playlist.musicas.push($scope.novaMusicaNaPlaylist);
 
 		$scope.novaMusicaNaPlaylist = '';
+		alert('Musica adicionada');
 	}
 	
 	
