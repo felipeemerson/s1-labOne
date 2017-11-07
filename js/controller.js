@@ -1,7 +1,7 @@
 app.controller("meuAppController", function($scope){
 	$scope.artistas = [];
 	$scope.artistasFavoritos = [];
-	$scope.playlists = [];
+	$scope.playlists = [{nome: 'Rock', id: '2183938213', musicas: [{nome: 'Still Loving You'}, {nome: 'Wind of Change'}]}];
 
 	$scope.novoArtista = {};
 
@@ -132,11 +132,14 @@ app.controller("meuAppController", function($scope){
 	}
 
 	$scope.removeFavorito = function(artista) {
-		for(indiceArtista = 0; indiceArtista < $scope.artistasFavoritos.length; indiceArtista++){
+		if(confirm("Excluir " + artista.nome + " dos favoritos?")){
+			for(indiceArtista = 0; indiceArtista < $scope.artistasFavoritos.length; indiceArtista++){
 			if(artista.nome == $scope.artistasFavoritos[indiceArtista].nome){
 				$scope.artistasFavoritos.splice(indiceArtista);
 			}
 		}
+		}
+		
 	}
 
 	$scope.estaEmFavoritos = function(artista) {
@@ -189,6 +192,16 @@ app.controller("meuAppController", function($scope){
 
 		$scope.novaMusicaNaPlaylist = '';
 		alert('Musica adicionada');
+	}
+
+	$scope.removerMusicaDaPlaylist = function(playlist, musica) {
+		for(indiceMusica = 0; indiceMusica < playlist.musicas.length; indiceMusica++){
+			if(playlist.musicas[indiceMusica] == musica){
+				playlist.musicas.splice(indiceMusica, 1);
+				return;
+			}
+		}
+		
 	}
 	
 	

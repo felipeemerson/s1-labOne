@@ -86,7 +86,7 @@
                         <label for="artist">Duração:</label>
                         <input type="text" class="form-control" pattern="([0-5][0-9]):([0-5][0-9])" ng-model="novaMusica.duracao" placeholder="MM:SS" required>
                      </div>
-                     <button type="submit" class="btn btn-secondary" style="margin-bottom: 6px">Adicionar música</button>
+                     <button type="submit" onclick="return confirm('Adicionar música?')" class="btn btn-secondary" style="margin-bottom: 6px">Adicionar música</button>
                   </form>
                </div>
             </div>
@@ -262,12 +262,15 @@
                       <div class="modal-body">
                         <form class="form-group row" ng-submit="adicionaMusicaNaPlaylist(playlist)">
                           <legend>Adicionar música</legend>
-                          <input type="text" name="" ng-model="novaMusicaNaPlaylist" />
+                          <input type="text" name="" ng-model="novaMusicaNaPlaylist.nome" />
                           <button type="submit" class="btn btn-default">Adicionar música</button>
                         </form>
 
                         <div ng-repeat="musica in playlist.musicas" style="margin-top: 20px">
-                          <li><h4>{{musica}}</h4></li>
+                          <li class="row"><h4>{{musica.nome}}</h4>
+                          <button ng-click="removerMusicaDaPLaylist(playlist, musica.nome)">-Remover</button>
+                        </li>
+
                         </div>
                       </div>
                       <div class="modal-footer">
