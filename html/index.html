@@ -31,18 +31,18 @@
             <div class="navbar-header">
               Hear.me <img src="../img/logo.png" alt="Logo" style="width:45px;">
             </div>
-            <ul class="nav nav-tabs">
-               <li class="active" ><a href="#inicio" data-toggle="tab">Ínicio</a></li>
-               <li><a href="#artistas" data-toggle="tab">Artistas</a></li>
-               <li><a href="#pesquisar" data-toggle="tab">Pesquisar</a></li>
-               <li><a href="#playlists" data-toggle="tab">Playlists</a></li>
+            <ul class="nav nav-tabs" role="tablist">
+               <li role="presentation" class="active" ><a href="#inicio" aria-controls="inicio" role="tab" data-toggle="tab">Início</a></li>
+               <li role="presentation"><a href="#artistas" aria-controls="artistas" role="tab" data-toggle="tab">Artistas</a></li>
+               <li role="presentation"><a href="#pesquisar" aria-controls="pesquisar" role="tab" data-toggle="tab">Pesquisar</a></li>
+               <li role="presentation"><a href="#playlists" aria-controls="playlists" role="tab" data-toggle="tab">Playlists</a></li>
             </ul>
             
          </div>
       </nav>
       <!-- Conteudo -->
       <div class="tab-content">
-         <div id="inicio" class="tab-pane fade in active">
+         <div role="tabpanel" id="inicio" class="tab-pane fade in active">
             <!--Linha com os dois formularios-->
             <div class="row" style="margin-top: 150px">
                <!-- Adicionar artista -->
@@ -93,16 +93,16 @@
             <!-- Fim div #inicio-->
          </div>
          <!-- Inicio div #artistas-->
-         <div id="artistas" class="tab-pane fade in active">
+         <div role="tabpanel" id="artistas" class="tab-pane fade">
                 <div class="row lista-artistas">
-      <div class="card artista" style="width: 250px; margin-right: 5px" ng-repeat="artista in artistas">
+      <div class="card artista" style="width: 250px; margin-right: 15px; margin-top: 15px" ng-repeat="artista in artistas">
 
         <!--Modal de artista-->
-        <div id="myModal{{artista.id}}" class="modal fade" role="dialog">
+        <div id="myModal{{artista.id}}" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg">
 
               <!-- Conteudo da modal-->
-                <div class="modal-content">
+                <div class="modal-content" role="document">
                     <div class="modal-header">
                       <h2 class="modal-title">{{ artista.nome }}</h2>
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -157,7 +157,7 @@
                <!-- Fim div #artistas -->
             </div>
             <!-- Inicio div #pesquisa -->
-            <div id="pesquisar" class="tab-pane fade in active">
+            <div role="tabpanel" id="pesquisar" class="tab-pane fade">
               <form class="form-group">
                 <legend>Pesquisar: </legend>
                 <input class="col-sm-10" type="text" ng-model="pesquisa.nome"  name="" value="" placeholder="Nome do artista">
@@ -183,7 +183,7 @@
             </div>
 
             <!-- Inicio div #playlists-->
-            <div id="playlists" class="tab-pane fade in active">
+            <div role="tabpanel" id="playlists" class="tab-pane fade">
               <form autocomplete="on" ng-submit="adicionaPlaylist()">
                      <legend><b>Adicionar playlist</b></legend>
                      <div class="form-group">
@@ -195,7 +195,39 @@
                      </footer>
                 </form>
 
-                
+                <!--Lista de playlists-->
+                <div ng-repeat="playlist in playlists" style="margin-top: 20px">
+                  <a data-toggle="modal" data-target="#playlistModal{{playlist.id}}"><li><h3>{{ playlist.nome }}</h3></li></a>
+                </div>
+
+                <!--Modal playlist-->
+                <div id="playlistModal{{playlist.id}}" class="modal fade" role="dialog" aria-labelledby="playlistModal{{playlist.id}}Label">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">{{playlist.name}}</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-group" ng-submit="adicionaMusica(playlist)">
+                          <legend>Adicionar música</legend>
+                          <input type="text" name="" ng-model="novaMusicaNaPlaylist" />
+                          <button type="submit" class="btn btn-default"></button>
+                        </form>
+
+                        <div ng-repeat="musica in playlist.musicas" style="margin-top: 20px">
+                          <li><h4>{{musica}}</h4></li>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
 
                <!-- Fim div #playlists -->
             </div>

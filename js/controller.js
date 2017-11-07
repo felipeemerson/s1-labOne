@@ -158,6 +158,7 @@ app.controller("meuAppController", function($scope){
 			alert("A playlist já existe!");
 		} else {
 			playlist.nome = $scope.novaPlaylist.nome;
+			playlist.id = Date.now();
 			$scope.playlists.push(playlist);
 		}
 		
@@ -171,6 +172,21 @@ app.controller("meuAppController", function($scope){
 			}
 		}
 		return true;
+	}
+
+	$scope.novaMusicaNaPlaylist = '';
+
+	$scope.adicionaMusicaNaPlaylist = function(playlist) {
+		for(indiceMusica = 0; indiceMusica < playlist.musicas.length; indiceMusica++) {
+			if(play.list.musicas[indiceMusica] == $scope.novaMusicaNaPlaylist){
+				alert('Música já está na playlist');
+				return;
+			}
+		}
+
+		playlist.musicas.push($scope.novaMusicaNaPlaylist);
+
+		$scope.novaMusicaNaPlaylist = '';
 	}
 	
 	
