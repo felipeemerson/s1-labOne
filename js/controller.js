@@ -1,7 +1,7 @@
 app.controller("meuAppController", function($scope){
 	$scope.artistas = [];
 	$scope.artistasFavoritos = [];
-	$scope.playlists = [{nome: 'Rock', id: '2183938213', musicas: [{nome: 'Still Loving You'}, {nome: 'Wind of Change'}]}];
+	$scope.playlists = [];
 
 	$scope.novoArtista = {};
 
@@ -169,6 +169,14 @@ app.controller("meuAppController", function($scope){
 		$scope.novaPlaylist = {};
 	}
 
+	$scope.removePlaylist = function(playlist){
+		for(var indicePlaylist = 0; indicePlaylist < $scope.playlists.length; indicePlaylist++){
+			if($scope.playlists[indicePlaylist].nome == playlist.nome){
+				$scope.playlists.splice(indicePlaylist, 1);
+			}
+		}
+	}
+
 	$scope.verificaNomePlaylist = function() {
 		for(indicePlaylist = 0; indicePlaylist < $scope.playlists.length; indicePlaylist++){
 			if($scope.playlists[indicePlaylist].nome == $scope.novaPlaylist.nome){
@@ -178,25 +186,34 @@ app.controller("meuAppController", function($scope){
 		return true;
 	}
 
-	$scope.novaMusicaNaPlaylist = '';
+	$scope.novaMusicaNaPlaylist = {};
 
 	$scope.adicionaMusicaNaPlaylist = function(playlist) {
-		for(indiceMusica = 0; indiceMusica < playlist.musicas.length; indiceMusica++) {
-			if(play.list.musicas[indiceMusica] == $scope.novaMusicaNaPlaylist){
-				alert('Música já está na playlist');
-				return;
+		if($scope.musicaEstaNaPlaylist(playlist, $scope.novaMusicaNaPlaylist.nome)){
+			alert('Música já está na playlist');
+
+		} else {
+			playlist.musicas.push($scope.novaMusicaNaPlaylist);
+			alert('Musica adicionada');	
+		}
+		
+		$scope.novaMusicaNaPlaylist = {};
+		
+	}
+
+	$scope.musicaEstaNaPlaylist = function(playlist, musica) {
+		for(var indiceMusica = 0; indiceMusica < playlist.musicas.length; indiceMusica++){
+			if(playlist.musicas[indiceMusica].nome == musica){
+				return true;
 			}
 		}
 
-		playlist.musicas.push($scope.novaMusicaNaPlaylist);
-
-		$scope.novaMusicaNaPlaylist = '';
-		alert('Musica adicionada');
+		return false;
 	}
 
 	$scope.removerMusicaDaPlaylist = function(playlist, musica) {
 		for(indiceMusica = 0; indiceMusica < playlist.musicas.length; indiceMusica++){
-			if(playlist.musicas[indiceMusica] == musica){
+			if(playlist.musicas[indiceMusica].nome == musica){
 				playlist.musicas.splice(indiceMusica, 1);
 				return;
 			}

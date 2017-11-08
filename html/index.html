@@ -249,7 +249,9 @@
 
                 <!--Lista de playlists-->
                 <div ng-repeat="playlist in playlists" style="margin-top: 20px">
-                  <a data-toggle="modal" data-target="#playlistModal{{playlist.id}}"><li><h3>{{ playlist.nome }}</h3></li></a>
+
+                  <a data-toggle="modal" data-target="#playlistModal{{playlist.id}}"><li><h4>{{ playlist.nome }}<button type="button" class="btn btn-secondary" ng-click="removePlaylist(playlist)" style="margin-left: 20px">✖Excluir</h4></button></li></a>
+
                    <!--Modal playlist-->
                 <div id="playlistModal{{playlist.id}}" class="modal fade" role="dialog">
                   <div class="modal-dialog">
@@ -260,10 +262,16 @@
                         <h4 class="modal-title">{{playlist.nome}}</h4>        
                       </div>
                       <div class="modal-body">
-                        <form class="form-group row" ng-submit="adicionaMusicaNaPlaylist(playlist)">
-                          <legend>Adicionar música</legend>
-                          <input type="text" name="" ng-model="novaMusicaNaPlaylist.nome" />
-                          <button type="submit" class="btn btn-default">Adicionar música</button>
+                        <form class="form-group" ng-submit="adicionaMusicaNaPlaylist(playlist)">
+                          <select ng-model="novaMusicaNaPlaylist">
+                            <option disabled selected value> -- Selecione uma música --</option>
+                            <div class="artistas-pl" ng-repeat="artista in artistas">
+                              <div class="albuns-pl" ng-repeat="album in artista.albuns">
+                                <option class="musicas-pl" ng-repeat="musica in album.musicas">{{musica1.nome}}</option>
+                              </div>
+                            </div>
+                          </select>
+                          <button type="submit">Adicionar música</button>
                         </form>
 
                         <div ng-repeat="musica in playlist.musicas" style="margin-top: 20px">
