@@ -267,7 +267,7 @@
                             <option disabled selected value="">-- Selecione uma música --</option>
                             <div class="artistas-pl" ng-repeat="artista in artistas">
                               <div class="albuns-pl" ng-repeat="album in artista.albuns">
-                                <option class="musicas-pl" ng-repeat="musica in album.musicas">{{musica.nome}}</option>
+                                <option class="musicas-pl" ng-repeat="musica in album.musicas" value="{{musica.nome}}">{{musica.nome}}</option>
                               </div>
                             </div>
                           </select>
