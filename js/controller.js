@@ -170,11 +170,14 @@ app.controller("meuAppController", function($scope){
 	}
 
 	$scope.removePlaylist = function(playlist){
-		for(var indicePlaylist = 0; indicePlaylist < $scope.playlists.length; indicePlaylist++){
-			if($scope.playlists[indicePlaylist].nome == playlist.nome){
-				$scope.playlists.splice(indicePlaylist, 1);
+		if(confirm("Excluir a playlist " + playlist.nome + "?")){
+			for(var indicePlaylist = 0; indicePlaylist < $scope.playlists.length; indicePlaylist++){
+				if($scope.playlists[indicePlaylist].nome == playlist.nome){
+					$scope.playlists.splice(indicePlaylist, 1);
+				}
 			}
 		}
+		
 	}
 
 	$scope.verificaNomePlaylist = function() {

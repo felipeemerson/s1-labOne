@@ -250,7 +250,7 @@
                 <!--Lista de playlists-->
                 <div ng-repeat="playlist in playlists" style="margin-top: 20px">
 
-                  <a data-toggle="modal" data-target="#playlistModal{{playlist.id}}"><li><h4>{{ playlist.nome }}<button type="button" class="btn btn-secondary" ng-click="removePlaylist(playlist)" style="margin-left: 20px">✖Excluir</h4></button></li></a>
+                  <li><h4><a data-toggle="modal" data-target="#playlistModal{{playlist.id}}">{{ playlist.nome }}</a><button type="button" class="btn btn-secondary" ng-click="removePlaylist(playlist)" style="margin-left: 20px">✖Excluir</h4></button></li>
 
                    <!--Modal playlist-->
                 <div id="playlistModal{{playlist.id}}" class="modal fade" role="dialog">
