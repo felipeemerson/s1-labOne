@@ -263,11 +263,11 @@
                       </div>
                       <div class="modal-body">
                         <form class="form-group" ng-submit="adicionaMusicaNaPlaylist(playlist)">
-                          <select ng-model="novaMusicaNaPlaylist">
-                            <option disabled selected value> -- Selecione uma música --</option>
+                          <select ng-model="novaMusicaNaPlaylist.nome">
+                            <option disabled selected value="">-- Selecione uma música --</option>
                             <div class="artistas-pl" ng-repeat="artista in artistas">
                               <div class="albuns-pl" ng-repeat="album in artista.albuns">
-                                <option class="musicas-pl" ng-repeat="musica in album.musicas">{{musica1.nome}}</option>
+                                <option class="musicas-pl" ng-repeat="musica in album.musicas">{{musica.nome}}</option>
                               </div>
                             </div>
                           </select>

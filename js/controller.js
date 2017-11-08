@@ -192,6 +192,10 @@ app.controller("meuAppController", function($scope){
 	$scope.novaMusicaNaPlaylist = {};
 
 	$scope.adicionaMusicaNaPlaylist = function(playlist) {
+		if($scope.novaMusicaNaPlaylist.nome == "-- Selecione uma música --"){
+			return;
+		}
+
 		if($scope.musicaEstaNaPlaylist(playlist, $scope.novaMusicaNaPlaylist.nome)){
 			alert('Música já está na playlist');
 
