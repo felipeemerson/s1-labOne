@@ -131,18 +131,6 @@ app.controller("meuAppController", function($scope){
 		return false;
 	}
 
-	$scope.musicaEstaNoSistema = function(){
-		for(var indiceMusica = 0; indiceArtista < $scope.musicasNoSistema.length; indiceMusica++){
-
-			if($scope.novaMusicaNaPlaylist == musicasNoSistema[indiceMusica]){
-				return true;
-			}
-			
-		}
-
-		return false;
-	}
-
 	$scope.adicionaFavorito = function(artista) {
 		$scope.artistasFavoritos.push(artista);
 	}
@@ -205,29 +193,28 @@ app.controller("meuAppController", function($scope){
 		return true;
 	}
 
-	$scope.novaMusicaNaPlaylist = '';
+	$scope.novaMusicaNaPlaylist = {};
 
 	$scope.adicionaMusicaNaPlaylist = function(playlist) {
-		if(!$scope.musicaEstaNoSistema()){
-			alert('Música nao está no sistema');
+		if($scope.novaMusicaNaPlaylist.nome == "-- Selecione uma música --" || $scope.novaMusicaNaPlaylist.nome == undefined){
+			alert('Escolha uma música!');
 			return;
-		}		
-
-		if($scope.musicaEstaNaPlaylist(playlist, $scope.novaMusicaNaPlaylist)){
+		}
+		if($scope.musicaEstaNaPlaylist(playlist, $scope.novaMusicaNaPlaylist.nome)){
 			alert('Música já está na playlist');
 
 		} else {
-			playlist.musicas.push($scope.novaMusicaNaPlaylist);
-			alert('Musica adicionada');	
+			playlist.musicas.push($scope.novaMusicaNaPlaylist.nome);
+			alert('Música adicionada!');	
 		}
 		
-		$scope.novaMusicaNaPlaylist = '';
+		$scope.novaMusicaNaPlaylist = {};
 		
 	}
 
 	$scope.musicaEstaNaPlaylist = function(playlist, musica) {
 		for(var indiceMusica = 0; indiceMusica < playlist.musicas.length; indiceMusica++){
-			if(playlist.musicas[indiceMusica].nome == musica){
+			if(playlist.musicas[indiceMusica] == musica){
 				return true;
 			}
 		}
@@ -239,7 +226,7 @@ app.controller("meuAppController", function($scope){
 		for(indiceMusica = 0; indiceMusica < playlist.musicas.length; indiceMusica++){
 			if(playlist.musicas[indiceMusica] == musica){
 				playlist.musicas.splice(indiceMusica, 1);
-				return;
+				break;
 			}
 		}
 		
@@ -247,6 +234,4 @@ app.controller("meuAppController", function($scope){
 	
 	
 	
-});
-
-
+});	

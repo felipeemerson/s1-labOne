@@ -17,7 +17,6 @@
       <link href="../css/bootstrap.min.3.css" rel="stylesheet">
       <!-- AngularJS -->
       <script src="../js/angular.js"></script>
-      
       <script src="../js/jquery.min.js"></script>
       <script src="../js/bootstrap.min.js"></script>
       <script src="../js/module.js"></script>
@@ -138,8 +137,8 @@
                     
                     
                     <div class="modal-footer">                      
-                      <button type="button" class="btn btn-secondary mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)">✚Favorito</button>
-                      <button type="button" class="btn btn-secondary mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)">✖Favorito</button>
+                      <button type="button" class="btn btn-success mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)">✚ Favorito</button>
+                      <button type="button" class="btn btn-danger mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)">✖ Favorito</button>
                     </div>
                 </div>
 
@@ -210,8 +209,8 @@
                     
                     
                     <div class="modal-footer">                      
-                      <button type="button" class="btn btn-secondary mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)">✚Favorito</button>
-                      <button type="button" class="btn btn-secondary mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)">✖Favorito</button>
+                      <button type="button" class="btn btn-success mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)">✚ Favorito</button>
+                      <button type="button" class="btn btn-danger mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)">✖ Favorito</button>
                     </div>
                 </div>
 
@@ -222,8 +221,8 @@
 
                   </td>
                   <td>
-                  <button type="button" class="btn btn-secondary mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)" style="float: right">✚Favorito</button>
-                  <button type="button" class="btn btn-secondary mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)" style="float: right">✖Favorito</button>
+                  <button type="button" class="btn btn-success mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)" style="float: right">✚ Favorito</button>
+                  <button type="button" class="btn btn-danger mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)" style="float: right">✖ Favorito</button>
                   </td>
                 </tr>
               </tbody>
@@ -238,19 +237,26 @@
             <div role="tabpanel" id="playlists" class="tab-pane fade">
               <form autocomplete="on" ng-submit="adicionaPlaylist()">
                      <legend><b>Adicionar playlist</b></legend>
-                     <div class="form-group">
-                        <label for="nome-artista">Nome da playlist:</label>
-                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="name" ng-model="novaPlaylist.nome" required>
+                     <div class="row form-group">
+                        <h4 style="margin-right: 10px">Nome da playlist:</h4>
+                        <input class="col-xs-4" type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="name" ng-model="novaPlaylist.nome" required>
+                        <button  type="submit" class="btn btn-success col-xs-2" style="margin-left: 10px">✚ Adicionar</button>
                      </div>
-                     <footer>
-                        <button type="submit" class="btn btn-secondary">Adicionar playlist</button>
-                     </footer>
+
+                       
+
                 </form>
 
                 <!--Lista de playlists-->
+                </br>
+                <h3><b>Suas playlists:</b></h3>
                 <div ng-repeat="playlist in playlists" style="margin-top: 20px">
-
-                  <li><h4><a data-toggle="modal" data-target="#playlistModal{{playlist.id}}">{{ playlist.nome }}</a><button type="button" class="btn btn-secondary" ng-click="removePlaylist(playlist)" style="margin-left: 20px">✖Excluir</h4></button></li>
+                  <table style="margin-left: 15px">
+                    <tr>
+                      <td><a data-toggle="modal" class="playlist-link" data-target="#playlistModal{{playlist.id}}"><h4>{{ playlist.nome }}</h4></a></td>
+                      <td><button type="button" class="btn btn-danger" ng-click="removePlaylist(playlist)" style="margin-left: 20px">✖ Excluir</button></td>
+                    </tr>
+                  </table>
 
                    <!--Modal playlist-->
                 <div id="playlistModal{{playlist.id}}" class="modal fade" role="dialog">
@@ -259,25 +265,30 @@
                     <!-- Modal content-->
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title">{{playlist.nome}}</h4>        
+                        <h3 class="modal-title">{{playlist.nome}}</h3>    
                       </div>
                       <div class="modal-body">
                         <form class="form-group" ng-submit="adicionaMusicaNaPlaylist(playlist)">
+                          <label>Adicionar música:</label>
                           <div clas="row">
-                            <input type="text" class="col-xs-6" placeholder="Digite a música" ng-model="novaMusicaNaPlaylist">
-                            <button class="btn btn-default col-xs-2" type="submit" style="margin-left: 10px">Adicionar</button>
+                            <select ng-model="novaMusicaNaPlaylist.nome">
+                              <option disabled selected value="">-- Selecione uma música --</option>
+                              <option ng-repeat="musica in musicasNoSistema" value="{{musica}}">{{musica}}</option>
+                            </select>
+                            <button class="btn btn-success" type="submit" style="margin-left: 10px">✚ Adicionar</button>
                           </div>
                         </form></br>
                         <h4>Músicas na playlist {{playlist.nome}}:</h4>
                         <div ng-repeat="musica in playlist.musicas" style="margin-top: 20px">
-                          <li class="row"><h4>{{musica}}</h4>
-                          <button ng-click="removerMusicaDaPLaylist(playlist, musica)">-Remover</button>
-                        </li>
-
+                          <table style="margin-left: 15px">
+                          <tr><td><h4>{{musica}}</h4></td>
+                          <td><button class="btn btn-danger" ng-click="removerMusicaDaPlaylist(playlist, musica)" style="margin-left: 10px">✖ Remover</button></td>
+                          </tr>
+                          </table>
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">✖ Fechar</button>
                       </div>
                     </div>
 
