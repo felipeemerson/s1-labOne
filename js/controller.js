@@ -46,7 +46,7 @@ app.controller("meuAppController", function($scope){
 	
 	$scope.validaImagem = function() {
 		if($scope.novoArtista.imagemUrl === undefined || $scope.novoArtista.imagemUrl == ''){
-			$scope.novoArtista.imagemUrl = '../img/no-image.png';
+			$scope.novoArtista.imagemUrl = 'img/no-image.png';
 		}
 	}
 
