@@ -254,7 +254,7 @@
 
                    <!--Modal playlist-->
                 <div id="playlistModal{{playlist.id}}" class="modal fade" role="dialog">
-                  <div class="modal-dialog">
+                  <div class="modal-dialog modal-lg">
 
                     <!-- Modal content-->
                     <div class="modal-content">
@@ -263,20 +263,15 @@
                       </div>
                       <div class="modal-body">
                         <form class="form-group" ng-submit="adicionaMusicaNaPlaylist(playlist)">
-                          <select ng-model="novaMusicaNaPlaylist.nome">
-                            <option disabled selected value="">-- Selecione uma música --</option>
-                            <div class="artistas-pl" ng-repeat="artista in artistas">
-                              <div class="albuns-pl" ng-repeat="album in artista.albuns">
-                                <option class="musicas-pl" ng-repeat="musica in album.musicas" value="{{musica.nome}}">{{musica.nome}}</option>
-                              </div>
-                            </div>
-                          </select>
-                          <button type="submit">Adicionar música</button>
-                        </form>
-
+                          <div clas="row">
+                            <input type="text" class="col-xs-6" placeholder="Digite a música" ng-model="novaMusicaNaPlaylist">
+                            <button class="btn btn-default col-xs-2" type="submit" style="margin-left: 10px">Adicionar</button>
+                          </div>
+                        </form></br>
+                        <h4>Músicas na playlist {{playlist.nome}}:</h4>
                         <div ng-repeat="musica in playlist.musicas" style="margin-top: 20px">
-                          <li class="row"><h4>{{musica.nome}}</h4>
-                          <button ng-click="removerMusicaDaPLaylist(playlist, musica.nome)">-Remover</button>
+                          <li class="row"><h4>{{musica}}</h4>
+                          <button ng-click="removerMusicaDaPLaylist(playlist, musica)">-Remover</button>
                         </li>
 
                         </div>

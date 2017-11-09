@@ -2,6 +2,7 @@ app.controller("meuAppController", function($scope){
 	$scope.artistas = [];
 	$scope.artistasFavoritos = [];
 	$scope.playlists = [];
+	$scope.musicasNoSistema = [];
 
 	$scope.novoArtista = {};
 
@@ -44,7 +45,7 @@ app.controller("meuAppController", function($scope){
 
 	
 	$scope.validaImagem = function() {
-		if($scope.novoArtista.imagemUrl === undefined){
+		if($scope.novoArtista.imagemUrl === undefined || $scope.novoArtista.imagemUrl == ''){
 			$scope.novoArtista.imagemUrl = '../img/no-image.png';
 		}
 	}
@@ -72,11 +73,14 @@ app.controller("meuAppController", function($scope){
 			alert('Música já existe!');
 		} else if($scope.albumExiste){
 			$scope.albumExistente.musicas.push(musica);
+			$scope.musicasNoSistema.push(musica.nome);
 			alert('Música adicionada no álbum: ' + $scope.albumExistente.nome);
 		} else {
 			var novoAlbum = {};
 			novoAlbum.nome = $scope.novaMusica.album;
-			novoAlbum.musicas = [musica];
+			novoAlbum.musicas = [];
+			novoAlbum.musicas.push(musica);
+			$scope.musicasNoSistema.push(musica.nome);
 			for(var indiceArtista = 0; indiceArtista < $scope.artistas.length; indiceArtista++){
 				if($scope.novaMusica.artista == $scope.artistas[indiceArtista].nome){
 					$scope.artistas[indiceArtista].albuns.push(novoAlbum);
@@ -124,6 +128,18 @@ app.controller("meuAppController", function($scope){
 				return true;
 			}
 		}
+		return false;
+	}
+
+	$scope.musicaEstaNoSistema = function(){
+		for(var indiceMusica = 0; indiceArtista < $scope.musicasNoSistema.length; indiceMusica++){
+
+			if($scope.novaMusicaNaPlaylist == musicasNoSistema[indiceMusica]){
+				return true;
+			}
+			
+		}
+
 		return false;
 	}
 
@@ -189,14 +205,15 @@ app.controller("meuAppController", function($scope){
 		return true;
 	}
 
-	$scope.novaMusicaNaPlaylist = {};
+	$scope.novaMusicaNaPlaylist = '';
 
 	$scope.adicionaMusicaNaPlaylist = function(playlist) {
-		if($scope.novaMusicaNaPlaylist.nome == "-- Selecione uma música --"){
+		if(!$scope.musicaEstaNoSistema()){
+			alert('Música nao está no sistema');
 			return;
-		}
+		}		
 
-		if($scope.musicaEstaNaPlaylist(playlist, $scope.novaMusicaNaPlaylist.nome)){
+		if($scope.musicaEstaNaPlaylist(playlist, $scope.novaMusicaNaPlaylist)){
 			alert('Música já está na playlist');
 
 		} else {
@@ -204,7 +221,7 @@ app.controller("meuAppController", function($scope){
 			alert('Musica adicionada');	
 		}
 		
-		$scope.novaMusicaNaPlaylist = {};
+		$scope.novaMusicaNaPlaylist = '';
 		
 	}
 
@@ -220,7 +237,7 @@ app.controller("meuAppController", function($scope){
 
 	$scope.removerMusicaDaPlaylist = function(playlist, musica) {
 		for(indiceMusica = 0; indiceMusica < playlist.musicas.length; indiceMusica++){
-			if(playlist.musicas[indiceMusica].nome == musica){
+			if(playlist.musicas[indiceMusica] == musica){
 				playlist.musicas.splice(indiceMusica, 1);
 				return;
 			}
