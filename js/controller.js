@@ -197,8 +197,14 @@ app.controller("meuAppController", function($scope){
 
 	$scope.adicionaMusicaNaPlaylist = function(playlist) {
 		if($scope.novaMusicaNaPlaylist.nome == "-- Selecione uma música --" || $scope.novaMusicaNaPlaylist.nome == undefined){
-			alert('Escolha uma música!');
-			return;
+			if($scope.musicasNoSistema.length == 0){
+				alert('Nenhuma música cadastrada no sistema! Adicione músicas!');
+				return;
+			} else {
+				alert('Escolha uma música!');
+				return;
+			}
+			
 		}
 		if($scope.musicaEstaNaPlaylist(playlist, $scope.novaMusicaNaPlaylist.nome)){
 			alert('Música já está na playlist');
