@@ -58,6 +58,7 @@
                      </div>
                      <footer>
                         <button type="submit" class="btn btn-success">✚ Adicionar</button>
+                        <button class="btn btn-danger" type="reset" value="Reset">✖ Limpar</button>
                      </footer>
                   </form>
                </div>
@@ -85,7 +86,8 @@
                         <label for="artist">Duração:</label>
                         <input type="text" class="form-control" pattern="([0-5][0-9]):([0-5][0-9])" id="duracao" ng-model="novaMusica.duracao" placeholder="MM:SS" required>
                      </div>
-                     <button type="submit" onclick="return confirm('Adicionar música?')" class="btn btn-success " style="margin-bottom: 6px">✚ Adicionar</button>
+                     <button type="submit" onclick="return confirm('Adicionar música?')" class="btn btn-success">✚ Adicionar</button>
+                     <button class="btn btn-danger" type="reset" value="Reset">✖ Limpar</button>
                   </form>
                </div>
             </div>
@@ -121,20 +123,25 @@
                           </div>
                           <div class="col-md-6" style="position: relative; margin-left: 5%">
                             <span>Nota:  <a href="" ng-hide="editingNota" ng-click="editingNota = true">{{artista.nota}}</a>
-                              <form ng-show="editingNota" ng-submit="editingNota = false">
-                                <input type="text" ng-model="artista.nota" style="width: 50px;text-align: center" />
-                                <button class="btn" type="submit">✔</button>
+                              <form ng-show="editingNota" ng-submit="editingNota = false; adicionaNota(artista);">
+                                <select ng-model="nota.valor">
+                                  <option ng-repeat="numero in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{numero}}</option>
+                                </select>
+                                <button class="btn btn-success" type="submit">✔</button>
                               </form>
                             </span></br>
 
                             <span>Última música:  <a href="" ng-hide="editingMusica" ng-click="editingMusica = true" style="max-width: 250px">{{artista.ultimaMusica}}</a>
-                              <form ng-show="editingMusica" ng-submit="editingMusica = false">
-                                <input type="text" ng-model="artista.ultimaMusica" style="width: 200px; text-align: center" />
-                                <button class="btn" type="submit">✔</button>
+                              <form ng-show="editingMusica" ng-submit="editingMusica = false; modificaUltimaMusica(artista);">
+                                <select ng-model="ultimaMusica.nome">
+                                  <option disabled selected value="">-- Selecione uma música --</option>
+                                  <option ng-repeat="musica in musicasNoSistema" ng-if="musica.artista === $parent.artista.nome" value="{{musica.nome}}">{{musica.nome}}</option>
+                                </select>
+                                <button class="btn btn-success" type="submit">✔</button>
                               </form>
                             </span></br> 
                             Álbuns:
-                            <ul class="card-text-right" style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
+                            <ul style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
                           </div>
                         </div>
 
@@ -190,20 +197,25 @@
                       </div>
                       <div class="col-md-6" style="position: relative; margin-left: 5%">
                         <span>Nota:  <a href="" ng-hide="editingNota" ng-click="editingNota = true">{{artista.nota}}</a>
-                          <form ng-show="editingNota" ng-submit="editingNota = false">
-                            <input type="text" ng-model="artista.nota" style="width: 50px;text-align: center" />
-                            <button class="btn" type="submit">✔</button>
+                          <form ng-show="editingNota" ng-submit="editingNota = false; adicionaNota(artista);">
+                            <select ng-model="nota.valor">
+                              <option ng-repeat="numero in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{numero}}</option>
+                            </select>
+                            <button class="btn btn-success" type="submit">✔</button>
                            </form>
                         </span></br>
 
                         <span>Última música:  <a href="" ng-hide="editingMusica" ng-click="editingMusica = true" style="max-width: 250px">{{artista.ultimaMusica}}</a>
-                          <form ng-show="editingMusica" ng-submit="editingMusica = false">
-                            <input type="text" ng-model="artista.ultimaMusica" style="width: 200px; text-align: center" />
-                            <button class="btn" type="submit">✔</button>
+                          <form ng-show="editingMusica" ng-submit="editingMusica = false; modificaUltimaMusica(artista);">
+                            <select ng-model="ultimaMusica.nome">
+                              <option disabled selected value="">-- Selecione uma música --</option>
+                              <option ng-repeat="musica in musicasNoSistema" ng-if="musica.artista === $parent.artista.nome" value="{{musica.nome}}">{{musica.nome}}</option>
+                            </select>
+                            <button class="btn btn-success" type="submit">✔</button>
                            </form>
                         </span></br>
                         Álbuns:
-                        <ul class="card-text-right" style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
+                        <ul style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
                       </div>
                     </div>
                     
@@ -274,7 +286,7 @@
                           <div clas="row">
                             <select ng-model="novaMusicaNaPlaylist.nome">
                               <option disabled selected value="">-- Selecione uma música --</option>
-                              <option ng-repeat="musica in musicasNoSistema" value="{{musica}}">{{musica}}</option>
+                              <option ng-repeat="musica in musicasNoSistema" value="{{musica.nome}}">{{musica.nome}}</option>
                             </select>
                             <button class="btn btn-success" type="submit" style="margin-left: 10px">✚ Adicionar</button>
                           </div>

@@ -73,14 +73,14 @@ app.controller("meuAppController", function($scope){
 			alert('Música já existe!');
 		} else if($scope.albumExiste){
 			$scope.albumExistente.musicas.push(musica);
-			$scope.musicasNoSistema.push(musica.nome);
+			$scope.musicasNoSistema.push({nome: $scope.novaMusica.nome, artista: $scope.novaMusica.artista});
 			alert('Música adicionada no álbum: ' + $scope.albumExistente.nome);
 		} else {
 			var novoAlbum = {};
 			novoAlbum.nome = $scope.novaMusica.album;
 			novoAlbum.musicas = [];
 			novoAlbum.musicas.push(musica);
-			$scope.musicasNoSistema.push(musica.nome);
+			$scope.musicasNoSistema.push({nome: $scope.novaMusica.nome, artista: $scope.novaMusica.artista});
 			for(var indiceArtista = 0; indiceArtista < $scope.artistas.length; indiceArtista++){
 				if($scope.novaMusica.artista == $scope.artistas[indiceArtista].nome){
 					$scope.artistas[indiceArtista].albuns.push(novoAlbum);
@@ -154,6 +154,27 @@ app.controller("meuAppController", function($scope){
 		}
 
 		return false;
+	}
+
+	$scope.NOTA_NAO_ESCOLHIDA = -1;
+	$scope.nota = {valor: $scope.NOTA_NAO_ESCOLHIDA};
+	$scope.ultimaMusica = {};
+
+	$scope.adicionaNota = function(artista) {
+		if($scope.nota.valor == $scope.NOTA_NAO_ESCOLHIDA){
+			return;
+		}
+		artista.nota = $scope.nota.valor;
+		$scope.nota.valor = $scope.NOTA_NAO_ESCOLHIDA;
+	}
+
+	$scope.modificaUltimaMusica = function(artista) {
+		if($scope.ultimaMusica.nome == "-- Selecione uma música --" || $scope.ultimaMusica.nome == undefined){
+			return;
+		}
+
+		artista.ultimaMusica = $scope.ultimaMusica.nome;
+		$scope.ultimaMusica = {};
 	}
 
 
