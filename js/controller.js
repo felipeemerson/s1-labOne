@@ -211,7 +211,7 @@ app.controller("meuAppController", function($scope){
 
 		} else {
 			playlist.musicas.push($scope.novaMusicaNaPlaylist.nome);
-			alert('Música adicionada!');	
+			alert($scope.novaMusicaNaPlaylist.nome + ' adicionada!');	
 		}
 		
 		$scope.novaMusicaNaPlaylist = {};

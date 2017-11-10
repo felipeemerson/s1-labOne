@@ -30,7 +30,7 @@
             <div class="navbar-header">
               Hear.me <img src="img/logo.png" alt="Logo" style="width:45px;">
             </div>
-            <ul class="nav nav-tabs pull-right" role="tablist">
+            <ul class="nav nav-tabs pull-right" role="tablist" style="margin-right: 40%">
                <li role="presentation" class="active" ><a href="#inicio" aria-controls="inicio" role="tab" data-toggle="tab">Início</a></li>
                <li role="presentation"><a href="#artistas" aria-controls="artistas" role="tab" data-toggle="tab">Artistas</a></li>
                <li role="presentation"><a href="#pesquisar" aria-controls="pesquisar" role="tab" data-toggle="tab">Pesquisar</a></li>
@@ -50,7 +50,7 @@
                      <legend><b>Adicionar artista</b></legend>
                      <div class="form-group">
                         <label for="nome-artista">Nome do artista:</label>
-                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="name" ng-model="novoArtista.nome" required>
+                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="artista" ng-model="novoArtista.nome" required>
                      </div>
                      <div class="form-group">
                         <label for="url">Link da imagem:</label>
@@ -71,69 +71,73 @@
                      </div>
                      <div class="form-group">
                         <label for="artist">Artista:</label>
-                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" ng-model="novaMusica.artista" required>
+                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="artista" ng-model="novaMusica.artista" required>
                      </div>
                      <div class="form-group">
                         <label for="album">Álbum:</label>
-                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" ng-model="novaMusica.album" required>
+                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="album" ng-model="novaMusica.album" required>
                      </div>
                      <div class="form-group">
                         <label for="artist">Ano de lançamento:</label>
-                        <input type="date" class="form-control" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" ng-model="novaMusica.ano" placeholder="DD-MM-AAAA" required>
+                        <input type="date" class="form-control" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" id="ano" ng-model="novaMusica.ano" placeholder="DD-MM-AAAA" required>
                      </div>
                      <div class="form-group">
                         <label for="artist">Duração:</label>
-                        <input type="text" class="form-control" pattern="([0-5][0-9]):([0-5][0-9])" ng-model="novaMusica.duracao" placeholder="MM:SS" required>
+                        <input type="text" class="form-control" pattern="([0-5][0-9]):([0-5][0-9])" id="duracao" ng-model="novaMusica.duracao" placeholder="MM:SS" required>
                      </div>
                      <button type="submit" onclick="return confirm('Adicionar música?')" class="btn btn-success " style="margin-bottom: 6px">✚ Adicionar</button>
                   </form>
                </div>
             </div>
-            <!-- Fim div #inicio-->
+            <!-- Fim div #inicio -->
          </div>
-         <!-- Inicio div #artistas-->
+
+         <!-- Inicio div #artistas -->
          <div role="tabpanel" id="artistas" class="tab-pane fade">
-                <div class="row lista-artistas">
-      <div class="card artista" style="width: 250px; margin-right: 15px; margin-top: 15px" ng-repeat="artista in artistas">
 
-        <!--Modal de artista-->
-        <div id="myModal{{artista.id}}" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg">
+          <!-- Galeria de artistas -->
+          <div ng-show="artistas.length > 0">
+            <div class="gallery">
+                 <!--Lista de artistas-->
+                <div class="imgContainer" ng-repeat="artista in artistas" style="display: inline-block; margin: 15px">
+                  <a data-toggle="modal" data-target="#myModal{{artista.id}}">
+                    <div class="artista-link" style="text-align: center"><h4>{{artista.nome}}</h4></div>
+                    <img class="img-thumbnail" src="{{artista.imagemUrl}}" width="225px" height="225px" style="cursor: pointer">
+                  </a>
 
-              <!-- Conteudo da modal-->
-                <div class="modal-content" role="document">
-                    <div class="modal-header">
-                      <h2 class="modal-title">{{ artista.nome }}</h2>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body row">
-                      <div class="col-md-6">
-                        <img class="card-img-left" ng-src="{{ artista.imagemUrl }}" alt="Imagem de {{ artista.nome }}" style="max-width: 225px; max-heigth: 225px">
-                      </div>
-                      <div class="col-md-6">
-                        <p>Álbuns:</p>
-                        <ul class="card-text-right" style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6" style="margin-left: 10px">
+                  <!--Modal de artista -->
+                  <div id="myModal{{artista.id}}" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" style="width: 35%">
 
-                        <span style="float: left">Nota:  <a href="" ng-hide="editingNota" ng-click="editingNota = true">{{artista.nota}}</a>
-                          <form class="form-group row" ng-show="editingNota" ng-submit="editingNota = false">
-                            <input type="text" ng-model="artista.nota" style="width: 50px; margin-left: 7px; margin-right: 5px; text-align: center" />
-                            <button class="btn" type="submit">✔</button>
-                           </form>
-                        </span> 
+                      <!-- Conteudo da modal -->
+                      <div class="modal-content" role="document">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">✖</button>
+                          <h3 class="modal-title" style="text-align: center">{{ artista.nome }}</h3>
+                        </div>
+                        <div class="modal-body row">
+                          <div class="col-md-4">
+                            <img class="card-img-left" ng-src="{{ artista.imagemUrl }}" alt="Imagem de {{ artista.nome }}" style="max-width: 225px; max-heigth: 225px">
+                          </div>
+                          <div class="col-md-6" style="position: relative; margin-left: 5%">
+                            <span>Nota:  <a href="" ng-hide="editingNota" ng-click="editingNota = true">{{artista.nota}}</a>
+                              <form ng-show="editingNota" ng-submit="editingNota = false">
+                                <input type="text" ng-model="artista.nota" style="width: 50px;text-align: center" />
+                                <button class="btn" type="submit">✔</button>
+                              </form>
+                            </span></br>
 
-                        <span style="margin-left: 10px">Última música:  <a href="" ng-hide="editingMusica" ng-click="editingMusica = true" style="max-width: 250px">{{artista.ultimaMusica}}</a>
-                          <form class="form-group row" ng-show="editingMusica" ng-submit="editingMusica = false">
-                            <input type="text" ng-model="artista.ultimaMusica" style="width: 200px; margin-left: 7px; margin-right: 5px; text-align: center" />
-                            <button class="btn" type="submit">✔</button>
-                           </form>
-                        </span>
+                            <span>Última música:  <a href="" ng-hide="editingMusica" ng-click="editingMusica = true" style="max-width: 250px">{{artista.ultimaMusica}}</a>
+                              <form ng-show="editingMusica" ng-submit="editingMusica = false">
+                                <input type="text" ng-model="artista.ultimaMusica" style="width: 200px; text-align: center" />
+                                <button class="btn" type="submit">✔</button>
+                              </form>
+                            </span></br> 
+                            Álbuns:
+                            <ul class="card-text-right" style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
+                          </div>
+                        </div>
 
-                      </div></br></br>
-                    </div>
                     
                     
                     <div class="modal-footer">                      
@@ -144,66 +148,63 @@
 
             </div>
         </div>
+                </div>
+            </div>
+          </div>
 
-        <!--Lista de artistas-->
-        <a data-toggle="modal" data-target="#myModal{{artista.id}}">
-          <h4 class="card-text artista-link" style="color: black; text-align: center">{{ artista.nome }}</h4>
-          <img class="card-img-top" ng-src="{{ artista.imagemUrl }}" alt="Imagem de {{ artista.nome }}">
-              
-        </a>
-      </div> 
-    </div>
+                 
+       
+
+
+
+
+
                <!-- Fim div #artistas -->
             </div>
+
             <!-- Inicio div #pesquisa -->
             <div role="tabpanel" id="pesquisar" class="tab-pane fade">
               <form class="form-group">
                 <legend>Pesquisar: </legend>
-                <input class="col-sm-10" type="text" ng-model="pesquisa.nome"  name="" value="" placeholder="Nome do artista">
+                <input class="col-sm-6" type="text" ng-model="pesquisa"  name="" value="" placeholder="Nome do artista">
               </form>
               </br>
               <table class="table">
                 <tbody>
-                <tr ng-if="pesquisa.nome" ng-repeat="artista in artistas | filter:pesquisa.nome">
-                  <td class="col-sm-5"><a data-toggle="modal" data-target="#myModalSearch{{artista.id}}"><h4 class="artista-link">{{artista.nome}}</h4></a>
+                <tr ng-if="pesquisa" ng-repeat="artista in artistas | filter:{nome: pesquisa}">
+                  <td class="col-sm-2"><a data-toggle="modal" data-target="#myModalSearch{{artista.id}}"><h4 class="artista-link">{{artista.nome}}</h4></a>
 
         <!--Modal de pesquisa-->
         <div id="myModalSearch{{artista.id}}" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog" style="width: 35%">
 
               <!-- Conteudo da modal-->
                 <div class="modal-content" role="document">
                     <div class="modal-header">
-                      <h2 class="modal-title">{{ artista.nome }}</h2>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">✖</button>
+                      <h3 class="modal-title" style="text-align: center">{{ artista.nome }}</h3>
                     </div>
                     <div class="modal-body row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <img class="card-img-left" ng-src="{{ artista.imagemUrl }}" alt="Imagem de {{ artista.nome }}" style="max-width: 225px; max-heigth: 225px">
                       </div>
-                      <div class="col-md-6">
-                        <p>Álbuns:</p>
+                      <div class="col-md-6" style="position: relative; margin-left: 5%">
+                        <span>Nota:  <a href="" ng-hide="editingNota" ng-click="editingNota = true">{{artista.nota}}</a>
+                          <form ng-show="editingNota" ng-submit="editingNota = false">
+                            <input type="text" ng-model="artista.nota" style="width: 50px;text-align: center" />
+                            <button class="btn" type="submit">✔</button>
+                           </form>
+                        </span></br>
+
+                        <span>Última música:  <a href="" ng-hide="editingMusica" ng-click="editingMusica = true" style="max-width: 250px">{{artista.ultimaMusica}}</a>
+                          <form ng-show="editingMusica" ng-submit="editingMusica = false">
+                            <input type="text" ng-model="artista.ultimaMusica" style="width: 200px; text-align: center" />
+                            <button class="btn" type="submit">✔</button>
+                           </form>
+                        </span></br>
+                        Álbuns:
                         <ul class="card-text-right" style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6" style="margin-left: 10px">
-
-                        <span style="float: left">Nota:  <a href="" ng-hide="editingNota" ng-click="editingNota = true">{{artista.nota}}</a>
-                          <form class="form-group row" ng-show="editingNota" ng-submit="editingNota = false">
-                            <input type="text" ng-model="artista.nota" style="width: 50px; margin-left: 7px; margin-right: 5px; text-align: center" />
-                            <button class="btn" type="submit">✔</button>
-                           </form>
-                        </span> 
-
-                        <span style="margin-left: 10px">Última música:  <a href="" ng-hide="editingMusica" ng-click="editingMusica = true" style="max-width: 250px">{{artista.ultimaMusica}}</a>
-                          <form class="form-group row" ng-show="editingMusica" ng-submit="editingMusica = false">
-                            <input type="text" ng-model="artista.ultimaMusica" style="width: 200px; margin-left: 7px; margin-right: 5px; text-align: center" />
-                            <button class="btn" type="submit">✔</button>
-                           </form>
-                        </span>
-
-                      </div></br></br>
                     </div>
                     
                     
@@ -219,9 +220,9 @@
 
 
                   </td>
-                  <td class="col-sm-2">
-                  <button type="button" class="btn btn-success mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)" style="float: right">✚ Favorito</button>
-                  <button type="button" class="btn btn-danger mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)" style="float: right">✖ Favorito</button>
+                  <td class="col-sm-3">
+                  <button type="button" class="btn btn-success mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)">✚ Favorito</button>
+                  <button type="button" class="btn btn-danger mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)">✖ Favorito</button>
                   </td>
                 </tr>
               </tbody>
@@ -238,7 +239,7 @@
                      <legend><b>Adicionar playlist</b></legend>
                      <div class="row form-group">
                         <h4 style="margin-right: 10px">Nome da playlist:</h4>
-                        <input class="col-xs-4" type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="name" ng-model="novaPlaylist.nome" required>
+                        <input class="col-xs-4" type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="playlist" ng-model="novaPlaylist.nome" required>
                         <button  type="submit" class="btn btn-success col-xs-2" style="margin-left: 10px">✚ Adicionar</button>
                      </div>
 
@@ -253,18 +254,19 @@
                   <table style="margin-left: 15px">
                     <tr>
                       <td><a data-toggle="modal" class="playlist-link" data-target="#playlistModal{{playlist.id}}"><h4>{{ playlist.nome }}</h4></a></td>
-                      <td><button type="button" class="btn btn-danger" ng-click="removePlaylist(playlist)" style="margin-left: 20px">✖ Excluir</button></td>
+                      <td><button type="button" class="btn btn-danger" ng-click="removePlaylist(playlist)" style="margin-left: 20px">✖</button></td>
                     </tr>
                   </table>
 
                    <!--Modal playlist-->
                 <div id="playlistModal{{playlist.id}}" class="modal fade" role="dialog">
-                  <div class="modal-dialog modal-lg">
+                  <div class="modal-dialog" style="width: 35%">
 
                     <!-- Modal content-->
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h3 class="modal-title">{{playlist.nome}}</h3>    
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">✖</button>
+                        <h3 class="modal-title" style="text-align: center">{{playlist.nome}}</h3>    
                       </div>
                       <div class="modal-body">
                         <form class="form-group" ng-submit="adicionaMusicaNaPlaylist(playlist)">
@@ -277,17 +279,14 @@
                             <button class="btn btn-success" type="submit" style="margin-left: 10px">✚ Adicionar</button>
                           </div>
                         </form></br>
-                        <h4>Músicas na playlist {{playlist.nome}}:</h4>
+                        <h4 ng-show="playlist.musicas.length > 0">Músicas na playlist {{playlist.nome}}:</h4>
                         <div ng-repeat="musica in playlist.musicas" style="margin-top: 20px">
                           <table style="margin-left: 15px">
                           <tr><td><h4>{{musica}}</h4></td>
-                          <td><button class="btn btn-danger" ng-click="removerMusicaDaPlaylist(playlist, musica)" style="margin-left: 10px">✖ Remover</button></td>
+                          <td><button class="btn btn-danger" ng-click="removerMusicaDaPlaylist(playlist, musica)" style="margin-left: 10px">✖</button></td>
                           </tr>
                           </table>
                         </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">✖ Fechar</button>
                       </div>
                     </div>
 

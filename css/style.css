@@ -43,6 +43,7 @@ body {
 }
 
 td .playlist-link:hover, .artista-link:hover, h4 .artista-link:hover{
+	color: black;
 	text-shadow: -2px -1px 10px rgba(84, 84, 84, 1);
 	cursor: pointer;
 }
