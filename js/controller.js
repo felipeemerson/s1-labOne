@@ -17,8 +17,7 @@ app.controller("meuAppController", function($scope){
 			artista.ultimaMusica = 'N/A';
 			$scope.artistas.push(artista);
 			$scope.novoArtista = {};
-
-			alert('Artista adicionado');
+			alert(artista.nome + ' adicionado(a)!');
 
 		}else {
 			alert('Nome do artista já existe!');

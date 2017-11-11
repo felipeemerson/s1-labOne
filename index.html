@@ -6,15 +6,14 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="description" content="">
-      <meta name="author" content="">
-      <title>Hear.me - Início</title>
+      <meta name="author" content="Felipe Emerson de Oliveira Calixto">
+      <title>Hear.me</title>
 
       <!-- Favicon -->
       <link rel="icon" type="image/png" sizes="50x50" href="img/logo.png">
 
       <!-- Bootstrap CSS -->
       <link href="css/style.css" rel="stylesheet">
-      <link href="css/style_test.css" rel="stylesheet">
       <link href="css/bootstrap.min.3.css" rel="stylesheet">
 
       <!-- AngularJS -->
@@ -82,7 +81,7 @@
                      </div>
                      <div class="form-group">
                         <label for="artist">Ano de lançamento:</label>
-                        <input type="date" class="form-control" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}" id="ano" ng-model="novaMusica.ano" placeholder="DD-MM-AAAA" required>
+                        <input type="date" class="form-control" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}" id="ano" ng-model="novaMusica.ano" placeholder="DD/MM/AAAA" required>
                      </div>
                      <div class="form-group">
                         <label for="artist">Duração:</label>
@@ -129,7 +128,7 @@
                                 <select ng-model="nota.valor">
                                   <option ng-repeat="numero in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{numero}}</option>
                                 </select>
-                                <button class="btn btn-success" type="submit">✔</button>
+                                <button class="btn btn-success botaoCircular" type="submit">✔</button>
                               </form>
                             </span></br>
 
@@ -139,20 +138,15 @@
                                   <option disabled selected value="">-- Selecione uma música --</option>
                                   <option ng-repeat="musica in musicasNoSistema" ng-if="musica.artista === $parent.artista.nome" value="{{musica.nome}}">{{musica.nome}}</option>
                                 </select>
-                                <button class="btn btn-success" type="submit">✔</button>
+                                <button class="btn btn-success botaoCircular" type="submit">✔</button>
                               </form>
-                            </span></br> 
+                            </span></br>
+                            Favorito: <a type="button" class="heart" href="" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)"><img src="img/unfavorite-heart.png"></a>
+                            <a type="button" href="" class="heart" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)"><img src="img/favorite-heart.png"></a></br>
                             Álbuns:
                             <ul style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
                           </div>
                         </div>
-
-                    
-                    
-                    <div class="modal-footer">                      
-                      <button type="button" class="btn btn-success mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)">✚ Favorito</button>
-                      <button type="button" class="btn btn-danger mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)">✖ Favorito</button>
-                    </div>
                 </div>
 
             </div>
@@ -160,13 +154,6 @@
                 </div>
             </div>
           </div>
-
-                 
-       
-
-
-
-
 
                <!-- Fim div #artistas -->
             </div>
@@ -179,9 +166,8 @@
               </form>
               </br>
               <table class="table">
-                <tbody>
                 <tr ng-if="pesquisa" ng-repeat="artista in artistas | filter:{nome: pesquisa}">
-                  <td class="col-sm-2"><a data-toggle="modal" data-target="#myModalSearch{{artista.id}}"><h4 class="artista-link">{{artista.nome}}</h4></a>
+                  <td><a data-toggle="modal" data-target="#myModalSearch{{artista.id}}"><h4 class="artista-link">{{artista.nome}}</h4></a>
 
         <!--Modal de pesquisa-->
         <div id="myModalSearch{{artista.id}}" class="modal fade" tabindex="-1" role="dialog">
@@ -216,30 +202,23 @@
                             <button class="btn btn-success" type="submit">✔</button>
                            </form>
                         </span></br>
+                        Favorito: <a type="button" class="heart" href="" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)"><img src="img/unfavorite-heart.png"></a>
+                        <a type="button" href="" class="heart" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)"><img src="img/favorite-heart.png"></a></br>
                         Álbuns:
                         <ul style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
                       </div>
-                    </div>
-                    
-                    
-                    <div class="modal-footer">                      
-                      <button type="button" class="btn btn-success mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)">✚ Favorito</button>
-                      <button type="button" class="btn btn-danger mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)">✖ Favorito</button>
                     </div>
                 </div>
 
             </div>
         </div>
 
-
-
                   </td>
-                  <td class="col-sm-3">
-                  <button type="button" class="btn btn-success mr-auto" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)">✚ Favorito</button>
-                  <button type="button" class="btn btn-danger mr-auto" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)">✖ Favorito</button>
+                  <td class="col-sm-7">
+                  <a type="button" href="" class="heart" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)"><img src="img/unfavorite-heart.png"></a>
+                  <a type="button" href="" class="heart" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)"><img src="img/favorite-heart.png"></a>
                   </td>
                 </tr>
-              </tbody>
               </table>
 
 
@@ -261,22 +240,22 @@
 
                 </form>
 
-                <!--Lista de playlists-->
+                <!--Lista de playlists -->
                 </br>
                 <h3><b>Suas playlists:</b></h3>
                 <div ng-repeat="playlist in playlists" style="margin-top: 20px">
                   <table style="margin-left: 15px">
                     <tr>
                       <td><a data-toggle="modal" class="playlist-link" data-target="#playlistModal{{playlist.id}}"><h4>{{ playlist.nome }}</h4></a></td>
-                      <td><button type="button" class="btn btn-danger" ng-click="removePlaylist(playlist)" style="margin-left: 20px">✖</button></td>
+                      <td><button type="button" class="btn btn-danger botaoCircular" id="botaoDeRemoverPlaylist" ng-click="removePlaylist(playlist)">✖</button></td>
                     </tr>
                   </table>
 
-                   <!--Modal playlist-->
+                   <!--Modal playlist -->
                 <div id="playlistModal{{playlist.id}}" class="modal fade" role="dialog">
                   <div class="modal-dialog" style="width: 35%">
 
-                    <!-- Modal content-->
+                    <!-- Modal playlist -->
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">✖</button>
@@ -294,10 +273,11 @@
                           </div>
                         </form></br>
                         <h4 ng-show="playlist.musicas.length > 0">Músicas na playlist {{playlist.nome}}:</h4>
+
+                        <!-- Lista de musicas da playlist -->
                         <div ng-repeat="musica in playlist.musicas" style="margin-top: 20px">
                           <table style="margin-left: 15px">
-                          <tr><td><h4>{{musica}}</h4></td>
-                          <td><button class="btn btn-danger" ng-click="removerMusicaDaPlaylist(playlist, musica)" style="margin-left: 10px">✖</button></td>
+                          <tr><td>{{musica}}<span class="botaoDeRemoverMusica" id="botaoDeRemoverMusica" ng-click="removerMusicaDaPlaylist(playlist, musica)">✖</span></td>
                           </tr>
                           </table>
                         </div>
@@ -318,4 +298,3 @@
       </div>
    </body>
 </html>
-
