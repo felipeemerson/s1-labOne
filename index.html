@@ -141,8 +141,8 @@
                                 <button class="btn btn-success botaoCircular" type="submit">✔</button>
                               </form>
                             </span></br>
-                            Favorito: <a type="button" class="heart" href="" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)"><img src="img/unfavorite-heart.png"></a>
-                            <a type="button" href="" class="heart" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)"><img src="img/favorite-heart.png"></a></br>
+                            Favorito: <a type="button" class="heart" href="" ng-show="!artista.favorito" ng-click="artista.favorito = true"><img src="img/unfavorite-heart.png"></a>
+                            <a type="button" href="" class="heart" ng-show="artista.favorito" ng-click="removeFavorito(artista)"><img src="img/favorite-heart.png"></a></br>
                             Álbuns:
                             <ul style="text-align: left" ng-repeat="album in artista.albuns"><li>{{ album.nome }}</li></ul>
                           </div>
@@ -215,8 +215,8 @@
 
                   </td>
                   <td class="col-sm-7">
-                  <a type="button" href="" class="heart" ng-show="!estaEmFavoritos(artista)" ng-click="adicionaFavorito(artista)"><img src="img/unfavorite-heart.png"></a>
-                  <a type="button" href="" class="heart" ng-show="estaEmFavoritos(artista)" ng-click="removeFavorito(artista)"><img src="img/favorite-heart.png"></a>
+                  <a type="button" href="" class="heart" ng-show="!artista.favorito" ng-click="artista.favorito = true"><img src="img/unfavorite-heart.png"></a>
+                  <a type="button" href="" class="heart" ng-show="artista.favorito" ng-click="removeFavorito(artista)"><img src="img/favorite-heart.png"></a>
                   </td>
                 </tr>
               </table>

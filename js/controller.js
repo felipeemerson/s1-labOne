@@ -1,6 +1,5 @@
 app.controller("meuAppController", function($scope){
 	$scope.artistas = [];
-	$scope.artistasFavoritos = [];
 	$scope.playlists = [];
 	$scope.musicasNoSistema = [];
 
@@ -15,6 +14,7 @@ app.controller("meuAppController", function($scope){
 			artista.albuns = [];
 			artista.nota = 'N/A';
 			artista.ultimaMusica = 'N/A';
+			artista.favorito = false;
 			$scope.artistas.push(artista);
 			$scope.novoArtista = {};
 			alert(artista.nome + ' adicionado(a)!');
@@ -130,29 +130,11 @@ app.controller("meuAppController", function($scope){
 		return false;
 	}
 
-	$scope.adicionaFavorito = function(artista) {
-		$scope.artistasFavoritos.push(artista);
-	}
-
 	$scope.removeFavorito = function(artista) {
 		if(confirm("Excluir " + artista.nome + " dos favoritos?")){
-			for(indiceArtista = 0; indiceArtista < $scope.artistasFavoritos.length; indiceArtista++){
-			if(artista.nome == $scope.artistasFavoritos[indiceArtista].nome){
-				$scope.artistasFavoritos.splice(indiceArtista);
-			}
-		}
+			artista.favorito = false;
 		}
 		
-	}
-
-	$scope.estaEmFavoritos = function(artista) {
-		for(indiceArtista = 0; indiceArtista < $scope.artistasFavoritos.length; indiceArtista++){
-			if(artista.nome == $scope.artistasFavoritos[indiceArtista].nome){
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	$scope.NOTA_NAO_ESCOLHIDA = -1;
