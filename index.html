@@ -51,7 +51,7 @@
                      <legend><b>Adicionar artista</b></legend>
                      <div class="form-group">
                         <label for="nome-artista">Nome do artista:</label>
-                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="artista" ng-model="novoArtista.nome" required>
+                        <input type="text" class="form-control" pattern="{1,}" placeholder="Mínimo 1 caractere" id="artista" ng-model="novoArtista.nome" required>
                      </div>
                      <div class="form-group">
                         <label for="url">Link da imagem:</label>
@@ -69,15 +69,15 @@
                      <legend><b>Adicionar música</b></legend>
                      <div class="form-group">
                         <label for="name-music">Nome da música:</label>
-                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="name" ng-model="novaMusica.nome" required>
+                        <input type="text" class="form-control" pattern="{1,}" placeholder="Mínimo 1 caractere" id="name" ng-model="novaMusica.nome" required>
                      </div>
                      <div class="form-group">
                         <label for="artist">Artista:</label>
-                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="artista" ng-model="novaMusica.artista" required>
+                        <input type="text" class="form-control" pattern="{1,}" placeholder="Mínimo 1 caractere" id="artista" ng-model="novaMusica.artista" required>
                      </div>
                      <div class="form-group">
                         <label for="album">Álbum:</label>
-                        <input type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="album" ng-model="novaMusica.album" required>
+                        <input type="text" class="form-control" pattern="{1,}" placeholder="Mínimo 1 caractere" id="album" ng-model="novaMusica.album" required>
                      </div>
                      <div class="form-group">
                         <label for="artist">Ano de lançamento:</label>
@@ -85,7 +85,7 @@
                      </div>
                      <div class="form-group">
                         <label for="artist">Duração:</label>
-                        <input type="text" class="form-control" pattern="([0-5][0-9]):([0-5][0-9])" id="duracao" ng-model="novaMusica.duracao" placeholder="MM:SS" required>
+                        <input type="text" class="form-control" pattern="([0-5][0-9]):([0-5][0-9])" id="duracao" ng-model="novaMusica.duracao" placeholder="MM:SS (Ex.: 03:25)" required>
                      </div>
                      <button type="submit" onclick="return confirm('Adicionar música?')" class="btn btn-success">✚ Adicionar</button>
                      <button class="btn btn-danger" type="reset" value="Reset">✖ Limpar</button>
@@ -232,7 +232,7 @@
                      <legend><b>Adicionar playlist</b></legend>
                      <div class="row form-group">
                         <h4 style="margin-right: 10px">Nome da playlist:</h4>
-                        <input class="col-xs-4" type="text" class="form-control" pattern="{1,}" placeholder="Minímo 1 caractere" id="playlist" ng-model="novaPlaylist.nome" required>
+                        <input class="col-xs-4" type="text" class="form-control" pattern="{1,}" placeholder="Mínimo 1 caractere" id="playlist" ng-model="novaPlaylist.nome" required>
                         <button  type="submit" class="btn btn-success col-xs-2" style="margin-left: 10px">✚ Adicionar</button>
                      </div>
 
