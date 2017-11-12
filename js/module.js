@@ -1,4 +1,1 @@
-
-
-
-var app = angular.module("meuApp", []);
+var app = angular.module("hearMe", []);
