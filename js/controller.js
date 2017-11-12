@@ -95,7 +95,9 @@ app.controller("hearMeController", function($scope){
 							$scope.musicaExiste = true;
 							return;
 						}
-					}	
+					}
+
+					return;	
 				}
 				
 			}
