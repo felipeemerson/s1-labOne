@@ -237,52 +237,54 @@
                     </form>
                     <!--Lista de playlists -->
                     </br>
-                    <h3><b>Suas playlists:</b></h3>
-                    <div class="playlists" ng-repeat="playlist in playlists">
-                        <table>
-                            <tr>
-                                <td>
-                                    <a data-toggle="modal" class="playlist-link" data-target="#playlistModal{{playlist.id}}">
-                                        <h4>{{ playlist.nome }}</h4>
-                                    </a>
-                                </td>
-                                <td><button type="button" class="btn btn-danger botaoCircular" id="botaoDeRemoverPlaylist" ng-click="removePlaylist(playlist)">✖</button></td>
-                            </tr>
-                        </table>
-                        <!--Modal playlist -->
-                        <div id="playlistModal{{playlist.id}}" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <!-- Modal playlist -->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">✖</button>
-                                        <h3 class="modal-title">{{playlist.nome}}</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="form-group form-musicas" ng-submit="adicionaMusicaNaPlaylist(playlist)">
-                                            <label>Adicionar música:</label>
-                                            <div clas="row">
-                                                <select ng-model="novaMusicaNaPlaylist.nome">
-                                                    <option disabled selected value="">-- Selecione uma música --</option>
-                                                    <option ng-repeat="musica in musicasNoSistema" value="{{musica.nome}}">{{musica.nome}}</option>
-                                                </select>
-                                                <button class="btn btn-success" type="submit">✚ Adicionar</button>
-                                            </div>
-                                        </form>
-                                        </br>
-                                        <h4 ng-show="playlist.musicas.length > 0">Músicas:</h4>
-                                        <!-- Lista de musicas da playlist -->
-                                        <div class=" musicas" ng-repeat="musica in playlist.musicas">
-                                            <table>
-                                                <tr>
-                                                    <td>{{musica}}<span class="botaoDeRemoverMusica" id="botaoDeRemoverMusica" ng-click="removerMusicaDaPlaylist(playlist, musica)">✖</span></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div ng-show="playlists.length > 0">
+                      <h3><b>Suas playlists:</b></h3>
+                      <div class="playlists" ng-repeat="playlist in playlists">
+                          <table>
+                              <tr>
+                                  <td>
+                                      <a data-toggle="modal" class="playlist-link" data-target="#playlistModal{{playlist.id}}">
+                                          <h4>{{ playlist.nome }}</h4>
+                                      </a>
+                                  </td>
+                                  <td><button type="button" class="btn btn-danger botaoCircular" id="botaoDeRemoverPlaylist" ng-click="removePlaylist(playlist)">✖</button></td>
+                              </tr>
+                          </table>
+                          <!--Modal playlist -->
+                          <div id="playlistModal{{playlist.id}}" class="modal fade" role="dialog">
+                              <div class="modal-dialog">
+                                  <!-- Modal playlist -->
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">✖</button>
+                                          <h3 class="modal-title">{{playlist.nome}}</h3>
+                                      </div>
+                                      <div class="modal-body">
+                                          <form class="form-group form-musicas" ng-submit="adicionaMusicaNaPlaylist(playlist)">
+                                              <label>Adicionar música:</label>
+                                              <div clas="row">
+                                                  <select ng-model="novaMusicaNaPlaylist.nome">
+                                                      <option disabled selected value="">-- Selecione uma música --</option>
+                                                      <option ng-repeat="musica in musicasNoSistema" value="{{musica.nome}}">{{musica.nome}}</option>
+                                                  </select>
+                                                  <button class="btn btn-success" type="submit">✚ Adicionar</button>
+                                              </div>
+                                          </form>
+                                          </br>
+                                          <h4 ng-show="playlist.musicas.length > 0">Músicas:</h4>
+                                          <!-- Lista de musicas da playlist -->
+                                          <div class=" musicas" ng-repeat="musica in playlist.musicas">
+                                              <table>
+                                                  <tr>
+                                                      <td>{{musica}}<span class="botaoDeRemoverMusica" id="botaoDeRemoverMusica" ng-click="removerMusicaDaPlaylist(playlist, musica)">✖</span></td>
+                                                  </tr>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                     </div>
                 <!-- Fim div #playlists -->
                 </div>
