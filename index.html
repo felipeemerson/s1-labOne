@@ -29,6 +29,7 @@
                     <ul class="nav nav-tabs pull-right" role="tablist" style="margin-right: 40%">
                         <li role="presentation" class="active" ><a href="#inicio" aria-controls="inicio" role="tab" data-toggle="tab">Início</a></li>
                         <li role="presentation"><a href="#artistas" aria-controls="artistas" role="tab" data-toggle="tab">Artistas</a></li>
+                        <li role="presentation"><a href="#artistas-favoritos" aria-controls="artistas-favoritos" role="tab" data-toggle="tab">Favoritos</a></li>
                         <li role="presentation"><a href="#playlists" aria-controls="playlists" role="tab" data-toggle="tab">Playlists</a></li>
                     </ul>
                 </div>
@@ -85,8 +86,9 @@
                             </form>
                         </div>
                     </div>
-                    <!-- Fim div #inicio -->
+                <!-- Fim div #inicio -->
                 </div>
+
                 <!-- Inicio div #artistas -->
                 <div role="tabpanel" id="artistas" class="tab-pane fade">
                     <div class="form-group row" ng-show="artistas.length > 0">
@@ -155,8 +157,74 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Fim div #artistas -->
+                <!-- Fim div #artistas -->
                 </div>
+
+                <!-- Inicio div #artistas-favoritos -->
+                <div role="tabpanel" id="artistas-favoritos" class="tab-pane fade">
+                    <!-- Galeria de artistas favoritos -->
+                    <div class="row">
+                        <div class="gallery">
+                            <!--Lista de artistas favoritos -->
+                            <div class="imgContainer" ng-repeat="artista in artistas | filter: {favorito: true}">
+                                <a data-toggle="modal" data-target="#artistaFavorito{{artista.id}}">
+                                    <h4 class="artista-link">{{artista.nome}}</h4>
+                                    <img class="img-thumbnail" src="{{artista.imagemUrl}}" width="225px" height="225px">
+                                    <div class="favorito">
+                                <a type="button" class="heart" href="" ng-show="!artista.favorito" ng-click="artista.favorito = true"><img src="img/unfavorite-heart.png"></a>
+                                <a type="button" href="" class="heart" ng-show="artista.favorito" ng-click="removeFavorito(artista)"><img src="img/favorite-heart.png"></a>
+                                </div>
+                                </a>
+                                <!--Modal de artista favorito -->
+                                <div id="artistaFavorito{{artista.id}}" class="modal fade" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Conteudo da modal -->
+                                        <div class="modal-content" role="document">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">✖</button>
+                                                <h3 class="modal-title">{{ artista.nome }}</h3>
+                                            </div>
+                                            <div class="modal-body row">
+                                                <div class="col-md-4">
+                                                    <img ng-src="{{ artista.imagemUrl }}" alt="Imagem de {{ artista.nome }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>
+                                                        Nota:  <a href="" ng-hide="editingNota" ng-click="editingNota = true">{{artista.nota}}</a>
+                                                        <form ng-show="editingNota" ng-submit="editingNota = false; adicionaNota(artista);">
+                                                            <select ng-model="nota.valor">
+                                                                <option ng-repeat="numero in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{numero}}</option>
+                                                            </select>
+                                                            <button class="btn btn-success botaoCircular" type="submit">✔</button>
+                                                        </form>
+                                                    </span>
+                                                    </br>
+                                                    <span>
+                                                        Última música:  <a class="ultima-musica" href="" ng-hide="editingMusica" ng-click="editingMusica = true">{{artista.ultimaMusica}}</a>
+                                                        <form ng-show="editingMusica" ng-submit="editingMusica = false; modificaUltimaMusica(artista);">
+                                                            <select ng-model="ultimaMusica.nome">
+                                                                <option disabled selected value="">-- Selecione uma música --</option>
+                                                                <option ng-repeat="musica in musicasNoSistema" ng-if="musica.artista === $parent.artista.nome" value="{{musica.nome}}">{{musica.nome}}</option>
+                                                            </select>
+                                                            <button class="btn btn-success botaoCircular" type="submit">✔</button>
+                                                        </form>
+                                                    </span>
+                                                    </br>
+                                                    Álbuns:
+                                                    <ul ng-repeat="album in artista.albuns">
+                                                        <li>{{ album.nome }}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- Fim div #artistas-favoritos -->
+                </div>
+
                 <!-- Inicio div #playlists-->
                 <div role="tabpanel" id="playlists" class="tab-pane fade">
                     <form autocomplete="on" ng-submit="adicionaPlaylist()">
@@ -216,11 +284,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Fim div #playlists -->
+                <!-- Fim div #playlists -->
                 </div>
-                <!-- Fim div conteudo -->
+            <!-- Fim div conteudo -->
             </div>
-            <!-- Fim div container -->
+        <!-- Fim div container -->
         </div>
     </body>
 </html>
